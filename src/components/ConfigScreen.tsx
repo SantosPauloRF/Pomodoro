@@ -1,4 +1,5 @@
 import { FormEvent, useState } from "react";
+import iconePomodoro from "../assets/icone-pomodoro.png";
 import { COPY } from "../constants/copy";
 import {
   minutosParaMs,
@@ -6,6 +7,7 @@ import {
   msParaMinutos,
 } from "../domain/duracoes";
 import type { Duracoes } from "../types/timer";
+import { IconeAlvo, IconeXicara } from "./Icones";
 
 type Props = {
   duracoes: Duracoes;
@@ -44,50 +46,74 @@ export function ConfigScreen({ duracoes, onSalvar, onVoltar }: Props) {
 
   return (
     <main className="tela tela-config">
-      <h1>{COPY.configTitulo}</h1>
+      <div className="marca">
+        <img src={iconePomodoro} alt="" className="logo-app" />
+        <h1>
+          {COPY.tituloApp}{" "}
+          <span className="marca-timer">{COPY.tituloTimer}</span>
+        </h1>
+        <p className="slogan">{COPY.configTitulo}</p>
+      </div>
       <p className="ajuda">{COPY.configAjuda}</p>
       <form className="form-config" onSubmit={enviar}>
-        <label htmlFor="config-foco">{COPY.configFoco}</label>
-        <input
-          id="config-foco"
-          data-testid="config-foco"
-          type="number"
-          min={1}
-          max={180}
-          step={1}
-          value={foco}
-          onChange={(e) => setFoco(e.target.value)}
-        />
-        <label htmlFor="config-pausa">{COPY.configPausa}</label>
-        <input
-          id="config-pausa"
-          data-testid="config-pausa"
-          type="number"
-          min={1}
-          max={180}
-          step={1}
-          value={pausa}
-          onChange={(e) => setPausa(e.target.value)}
-        />
-        <label htmlFor="config-pausa-longa">{COPY.configPausaLonga}</label>
-        <input
-          id="config-pausa-longa"
-          data-testid="config-pausa-longa"
-          type="number"
-          min={1}
-          max={180}
-          step={1}
-          value={pausaLonga}
-          onChange={(e) => setPausaLonga(e.target.value)}
-        />
+        <label className="campo-config" htmlFor="config-foco">
+          <span className="campo-config-rotulo">
+            <IconeAlvo className="icone icone-coral" />
+            {COPY.configFoco}
+          </span>
+          <input
+            id="config-foco"
+            data-testid="config-foco"
+            type="number"
+            min={1}
+            max={180}
+            step={1}
+            value={foco}
+            onChange={(e) => setFoco(e.target.value)}
+          />
+        </label>
+        <label className="campo-config" htmlFor="config-pausa">
+          <span className="campo-config-rotulo">
+            <IconeXicara className="icone icone-verde" />
+            {COPY.configPausa}
+          </span>
+          <input
+            id="config-pausa"
+            data-testid="config-pausa"
+            type="number"
+            min={1}
+            max={180}
+            step={1}
+            value={pausa}
+            onChange={(e) => setPausa(e.target.value)}
+          />
+        </label>
+        <label className="campo-config" htmlFor="config-pausa-longa">
+          <span className="campo-config-rotulo">
+            <IconeXicara className="icone icone-ouro" />
+            {COPY.configPausaLonga}
+          </span>
+          <input
+            id="config-pausa-longa"
+            data-testid="config-pausa-longa"
+            type="number"
+            min={1}
+            max={180}
+            step={1}
+            value={pausaLonga}
+            onChange={(e) => setPausaLonga(e.target.value)}
+          />
+        </label>
         {erro ? (
           <p className="erro" role="alert">
             {COPY.configErro}
           </p>
         ) : null}
         <div className="acoes">
-          <button type="submit">{COPY.salvar}</button>
-          <button type="button" className="secundario" onClick={onVoltar}>
+          <button type="submit" className="botao-principal">
+            {COPY.salvar}
+          </button>
+          <button type="button" className="botao-secundario" onClick={onVoltar}>
             {COPY.voltar}
           </button>
         </div>

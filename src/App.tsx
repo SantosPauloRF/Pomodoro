@@ -17,14 +17,18 @@ import {
   resetar,
   sincronizar,
 } from "./domain/timer";
+import { instantaneoDeEstado } from "./domain/instantaneo";
 import {
   aoDispensarOverlay,
   abrirOverlayNativo,
+  emitirInstantaneo,
   fecharOverlayNativo,
   isTauri,
+  observarComandoFlutuante,
   restaurarPrincipal,
 } from "./overlay/tauriOverlay";
 import { gravarDuracoesLocal, lerDuracoesLocal } from "./storage/duracoes";
+import { gravarInstantaneo } from "./storage/instantaneo";
 import type { Duracoes } from "./types/timer";
 
 export default function App() {
@@ -35,6 +39,24 @@ export default function App() {
     criarEstadoInicial(duracoes, focoNoCicloDaBusca(window.location.search)),
   );
   const [tela, setTela] = useState<"timer" | "config">("timer");
+
+  useEffect(() => {
+    const snap = instantaneoDeEstado(state);
+    gravarInstantaneo(snap);
+    if (isTauri()) {
+      void emitirInstantaneo(snap);
+    }
+  }, [state]);
+
+  useEffect(() => {
+    if (!isTauri()) {
+      return;
+    }
+    const id = window.setInterval(() => {
+      void emitirInstantaneo(instantaneoDeEstado(state));
+    }, 800);
+    return () => window.clearInterval(id);
+  }, [state]);
 
   useEffect(() => {
     if (state.phase !== "running") {
@@ -65,6 +87,17 @@ export default function App() {
       ativo = false;
       unlisten?.();
     };
+  }, []);
+
+  useEffect(() => {
+    return observarComandoFlutuante((comando) => {
+      setState((atual) => {
+        if (comando === "pausar") {
+          return pausar(atual, Date.now());
+        }
+        return iniciar(atual, Date.now());
+      });
+    });
   }, []);
 
   useEffect(() => {

@@ -60,7 +60,7 @@ stateDiagram-v2
 - **Entendi** fecha o overlay e mostra o próximo modo **parado** (Iniciar pausa / Iniciar foco).
 - **Pular** na tela do timer avança o modo atual sem esperar o tempo e sem overlay.
 
-Identidade visual: **TBD**. UI limpa; overlay com contraste alto. Não inventar paleta “genérica AI” como marca.
+Identidade visual: ícone **tomate com relógio**; janela no modelo de referência (fundo escuro, anel coral, botão-pílula). Overlay com contraste alto.
 
 ## Ordem de trabalho
 
@@ -77,11 +77,9 @@ Sem cards. Fatias neste chat (ou `pomodoro-dev`). Commit só se o usuário pedir
 
 - Histórico.
 - Bandeja / continuar com a janela fechada.
-- Paleta e tipografia.
 - Atalho extra no menu Iniciar / área de trabalho além do que o instalador Tauri já criar.
 
 ## TBD
 
 - Som em loop vs um toque.
-- Visual.
 - Electron só se Rust for bloqueio.

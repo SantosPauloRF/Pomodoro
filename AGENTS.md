@@ -47,13 +47,15 @@ Se a escolha for global, **não** copiar o parágrafo para este repo — no máx
 6. UI e mensagens ao usuário em **português**.
 7. Ao zerar o timer: backdrop fullscreen em **todos os monitores**, **50% transparente**, com **animação ao abrir** + som de alerta; o próximo modo não inicia sozinho.
 8. Ciclo: **4 focos** — pausa curta depois dos focos 1–3; pausa longa depois do 4º. Durações editáveis na tela de configuração (iniciais 25 / 5 / 15 min).
-9. Ao **minimizar** ou **clicar fora** da janela: ícone flutuante always-on-top, **arrastável**, **só o ícone** (sem fundo de janela); clique no ícone abre de novo a janela.
+9. Ao **minimizar** ou **clicar fora** da janela: ícone flutuante always-on-top, **arrastável**, tomate com relógio **sem fundo de janela**; **anel de progresso** em volta de todo o widget; interior do círculo com backdrop **50% transparente** (igual ao overlay ao zerar); no centro **horário atual**, **dia da semana** e **dia do mês**; **play** embaixo por cima do círculo (vira **pause** se o timer estiver rodando); clique no ícone abre de novo a janela.
 10. Commit só se o usuário pedir. Sem checklist Trello. Pedidos avulsos: sem testes no chat, salvo pedido ou ao criar/alterar testes da fatia.
 11. Plano vigente: [PLANEJAMENTO.md](./PLANEJAMENTO.md).
 12. **Entendi** leva à tela do próximo modo (pausa ou foco) **parado**, para o usuário iniciar.
 13. **Pular** avança o modo atual (foco ou pausa) sem esperar o tempo; não abre overlay.
+14. Ícone do app (janela, `.exe`, barra de tarefas) e do flutuante: **tomate com relógio**.
+15. Visual da janela: fundo escuro, anel de progresso, acento coral, cartões e botão-pílula — no modelo da referência escolhida. Copy em português.
 
-Som em loop vs um toque, e identidade visual: **TBD** (ver skill `produto-pomodoro`).
+Som em loop vs um toque: **TBD** (ver skill `produto-pomodoro`).
 
 ## Subagentes deste repo
 
@@ -79,3 +81,8 @@ Som em loop vs um toque, e identidade visual: **TBD** (ver skill `produto-pomodo
 | 2026-09-17 | Plano gravado: Windows/Tauri 2+Vite+React+TS; sem Trello; MVP timer + overlay em todos os monitores + som; sem persistência. |
 | 2026-09-17 | Clicar fora da janela principal também minimiza para o ícone flutuante. |
 | 2026-09-17 | Backdrop 50% transparente com animação; ícone flutuante sem fundo de janela; Entendi abre o próximo modo parado; dá para pular foco e pausa. |
+| 2026-09-17 | Ícone do app e do flutuante: tomate com relógio. |
+| 2026-09-17 | Ícone flutuante mostra horário atual, dia da semana e dia do mês. |
+| 2026-09-17 | Visual da janela no modelo da referência: fundo escuro, anel, acento coral. |
+| 2026-09-17 | Ícone flutuante com anel de progresso em volta de todo o widget e backdrop 50% no círculo. |
+| 2026-09-17 | Play/pause no flutuante, embaixo por cima do círculo. |

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { COPY } from "../constants/copy";
 import type { Mode } from "../types/timer";
 
@@ -22,9 +22,9 @@ function texto(motivo: Mode): string {
 }
 
 export function OverlayPanel({ motivo, onDispensar }: Props) {
-  useEffect(() => {
-    document.documentElement.classList.add("corpo-overlay");
-    document.body.classList.add("corpo-overlay");
+  useLayoutEffect(() => {
+    document.documentElement.classList.add("janela-overlay");
+    document.body.classList.add("janela-overlay");
     function onKey(evento: KeyboardEvent) {
       if (evento.key === "Escape") {
         onDispensar();
@@ -32,8 +32,8 @@ export function OverlayPanel({ motivo, onDispensar }: Props) {
     }
     window.addEventListener("keydown", onKey);
     return () => {
-      document.documentElement.classList.remove("corpo-overlay");
-      document.body.classList.remove("corpo-overlay");
+      document.documentElement.classList.remove("janela-overlay");
+      document.body.classList.remove("janela-overlay");
       window.removeEventListener("keydown", onKey);
     };
   }, [onDispensar]);
@@ -43,7 +43,12 @@ export function OverlayPanel({ motivo, onDispensar }: Props) {
       <div className="overlay-caixa">
         <h1 data-testid="overlay-title">{titulo(motivo)}</h1>
         <p>{texto(motivo)}</p>
-        <button type="button" data-testid="overlay-dismiss" onClick={onDispensar}>
+        <button
+          type="button"
+          className="botao-principal"
+          data-testid="overlay-dismiss"
+          onClick={onDispensar}
+        >
           {COPY.dispensar}
         </button>
       </div>

@@ -44,7 +44,8 @@ Não introduzir banco, fila, Docker ou provedor de deploy. Electron só se Rust/
 ### Minimizar
 
 - Ao minimizar a janela principal **ou clicar fora dela**: esconder o app e mostrar um **ícone flutuante** (always-on-top).
-- O ícone é **arrastável** e **só o círculo** — sem fundo branco de janela. Clique (sem arrastar) restaura a janela principal.
+- O ícone é **arrastável**, tomate com relógio, **sem fundo branco de janela**. Clique (sem arrastar) restaura a janela principal.
+- No flutuante: **anel de progresso** em volta de **todo** o widget (cor do modo: coral / verde / ouro); interior do círculo com backdrop **50% transparente** igual ao overlay ao zerar (`rgba(16, 20, 28, 0.5)`); no centro o tomate, **horário atual**, **dia da semana** (curto) e **dia do mês**; **play** embaixo por cima do círculo (vira **pause** com o timer rodando). Clique no ícone (sem arrastar) restaura a janela; play/pause não restaura.
 - Ao zerar o timer, o backdrop abre **mesmo minimizado**; o flutuante some e a janela principal volta. Escape ou Entendi dispensa.
 
 ### Ao zerar (interruptor)
@@ -60,7 +61,8 @@ Não introduzir banco, fila, Docker ou provedor de deploy. Electron só se Rust/
 
 - Copy em **português**.
 - Padrões globais de senha/delete: skill `ui-padroes` **quando** houver esses fluxos.
-- Paleta, tipografia, layout do timer: TBD — não inventar identidade visual “genérica AI” e tratar como escolhida. Overlay: contraste alto.
+- Ícone do app e do flutuante: **tomate com relógio** (`src/assets/icone-pomodoro.png`).
+- Visual da janela (decidido): fundo `#10141c`, acento coral `#ff6b4a`, anel de progresso, cartões laterais (ciclo / pular), botão-pílula, chips de pausa. Copy em **português**. Sem inventar sessão/streak.
 
 ## Como evoluir esta skill
 

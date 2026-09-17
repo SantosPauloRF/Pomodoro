@@ -22,8 +22,40 @@
         gap: 1rem;
         text-align: center;
         padding: 2rem;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(16, 20, 28, 0.5);
         animation: overlay-entrar 0.45s ease-out;
+      }
+      .overlay-caixa-fallback {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        max-width: 28rem;
+        padding: 2rem 1.75rem;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 1.4rem;
+        background: #181e2a;
+      }
+      .overlay-fallback h1 {
+        margin: 0;
+        font-size: 2rem;
+      }
+      .overlay-fallback p {
+        margin: 0;
+        color: #8b93a7;
+      }
+      .overlay-fallback button {
+        font: inherit;
+        min-width: 10rem;
+        padding: 0.85rem 1.8rem;
+        border: none;
+        border-radius: 999px;
+        background: #ff6b4a;
+        color: #fff;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
       }
       @keyframes overlay-entrar {
         from {
@@ -33,19 +65,16 @@
           opacity: 1;
         }
       }
-      .overlay-fallback button {
-        font: inherit;
-        padding: 0.55rem 1.25rem;
-        cursor: pointer;
-      }
     </style>
   </head>
   <body>
     <div id="root">
       <div class="overlay-fallback">
-        <h1>Hora de parar</h1>
-        <p>A sessão acabou.</p>
-        <button id="fallback-ok" type="button">Entendi</button>
+        <div class="overlay-caixa-fallback">
+          <h1>Hora de parar</h1>
+          <p>A sessão acabou.</p>
+          <button id="fallback-ok" type="button">Entendi</button>
+        </div>
       </div>
     </div>
     <script>

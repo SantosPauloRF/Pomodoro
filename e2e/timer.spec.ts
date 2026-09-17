@@ -93,4 +93,20 @@ test.describe("timer Pomodoro", () => {
     await page.reload();
     await expect(page.getByTestId("timer-display")).toHaveText("02:00");
   });
+
+  test("o ícone flutuante mostra anel, hora e data", async ({ page }) => {
+    await page.goto("/?focoMs=8000");
+    await page.getByRole("button", { name: "Iniciar foco" }).click();
+    await page.goto("/float.html");
+    await expect(page.getByTestId("float-icon")).toBeVisible();
+    await expect(page.locator(".anel-flutuante .anel-arco")).toBeVisible();
+    await expect(page.getByTestId("float-clock")).toHaveText(/\d{2}:\d{2}/);
+    await expect(page.getByTestId("float-date")).toHaveText(
+      /^(dom|seg|ter|qua|qui|sex|sáb) \d{1,2}$/,
+    );
+    await expect(page.getByTestId("float-play")).toHaveAttribute(
+      "aria-label",
+      "Pausar",
+    );
+  });
 });
