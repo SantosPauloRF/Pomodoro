@@ -32,6 +32,8 @@ Não introduzir banco, fila, Docker ou provedor de deploy. Electron só se Rust/
 | Deploy | `.exe` / instalador Tauri no Windows |
 | Trello | Não se aplica |
 
+Instalador: `npm run tauri build` → NSIS em `src-tauri/target/release/bundle/nsis/`. Última página sugere **atalho na área de trabalho** (marcado). Atalho no Menu Iniciar é criado. **Barra de tarefas:** o Windows não permite o instalador fixar; o usuário fixa pelo Menu Iniciar ou pelo ícone depois de abrir o app.
+
 ## Timer
 
 - Modos: **foco**, **pausa** (curta) e **pausa longa**. Iniciar, pausar, resetar.
