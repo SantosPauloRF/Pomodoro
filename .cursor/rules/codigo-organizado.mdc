@@ -1,0 +1,16 @@
+---
+description: Este repo Pomodoro aplica o AGENTS-codigo global (sem duplicar o texto)
+alwaysApply: true
+---
+
+# Organização de código (Pomodoro)
+
+Este repositório **aplica** o padrão global. Ler e seguir o arquivo canônico — não reescrever as regras aqui:
+
+`C:\Users\santo\.cursor\AGENTS-codigo.md`
+
+Em UI (formulário, senha, delete/remove, modal): skill global
+
+`C:\Users\santo\.cursor\skills\ui-padroes\SKILL.md`
+
+Decisões **só deste app** (stack, timer, escopo): `AGENTS.md` na raiz e skills em `.cursor/skills/`.
