@@ -1,29 +1,40 @@
 import { useEffect, useMemo, useState } from "react";
 import { tocarAlerta } from "./audio/alerta";
-import { TimerScreen } from "./components/TimerScreen";
+import { ConfigScreen } from "./components/ConfigScreen";
 import { OverlayPanel } from "./components/OverlayPanel";
-import { duracoesDaBusca } from "./domain/duracoes";
+import { TimerScreen } from "./components/TimerScreen";
 import {
+  duracoesDaBusca,
+  focoNoCicloDaBusca,
+} from "./domain/duracoes";
+import {
+  aplicarDuracoes,
   criarEstadoInicial,
   dispensarOverlay,
   iniciar,
   pausar,
+  pular,
   resetar,
   sincronizar,
 } from "./domain/timer";
 import {
-  abrirOverlayNativo,
   aoDispensarOverlay,
+  abrirOverlayNativo,
   fecharOverlayNativo,
   isTauri,
+  restaurarPrincipal,
 } from "./overlay/tauriOverlay";
+import { gravarDuracoesLocal, lerDuracoesLocal } from "./storage/duracoes";
+import type { Duracoes } from "./types/timer";
 
 export default function App() {
-  const duracoes = useMemo(
-    () => duracoesDaBusca(window.location.search),
-    [],
+  const duracoes = useMemo(() => {
+    return duracoesDaBusca(window.location.search, lerDuracoesLocal());
+  }, []);
+  const [state, setState] = useState(() =>
+    criarEstadoInicial(duracoes, focoNoCicloDaBusca(window.location.search)),
   );
-  const [state, setState] = useState(() => criarEstadoInicial(duracoes));
+  const [tela, setTela] = useState<"timer" | "config">("timer");
 
   useEffect(() => {
     if (state.phase !== "running") {
@@ -62,26 +73,45 @@ export default function App() {
     }
     void tocarAlerta();
     if (isTauri()) {
-      void abrirOverlayNativo(state.mode);
+      void abrirOverlayNativo(state.mode).catch(() => {
+        void restaurarPrincipal();
+      });
     }
   }, [state.phase, state.mode]);
 
   function dispensarNaPagina() {
-    if (isTauri()) {
-      void fecharOverlayNativo();
-      return;
-    }
     setState((atual) => dispensarOverlay(atual));
+    if (isTauri()) {
+      void fecharOverlayNativo().catch(() => {
+        void restaurarPrincipal();
+      });
+    }
+  }
+
+  function salvarConfig(novas: Duracoes) {
+    gravarDuracoesLocal(novas);
+    setState((atual) => aplicarDuracoes(atual, novas));
+    setTela("timer");
   }
 
   return (
     <>
-      <TimerScreen
-        state={state}
-        onIniciar={() => setState((atual) => iniciar(atual, Date.now()))}
-        onPausar={() => setState((atual) => pausar(atual, Date.now()))}
-        onResetar={() => setState((atual) => resetar(atual))}
-      />
+      {tela === "config" ? (
+        <ConfigScreen
+          duracoes={state.duracoes}
+          onSalvar={salvarConfig}
+          onVoltar={() => setTela("timer")}
+        />
+      ) : state.phase === "overlay" ? null : (
+        <TimerScreen
+          state={state}
+          onIniciar={() => setState((atual) => iniciar(atual, Date.now()))}
+          onPausar={() => setState((atual) => pausar(atual, Date.now()))}
+          onResetar={() => setState((atual) => resetar(atual))}
+          onPular={() => setState((atual) => pular(atual))}
+          onAbrirConfig={() => setTela("config")}
+        />
+      )}
       {state.phase === "overlay" ? (
         <OverlayPanel motivo={state.mode} onDispensar={dispensarNaPagina} />
       ) : null}

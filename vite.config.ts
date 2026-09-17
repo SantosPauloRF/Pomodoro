@@ -17,6 +17,7 @@ export default defineConfig({
       input: {
         main: path.join(raiz, "index.html"),
         overlay: path.join(raiz, "overlay.html"),
+        float: path.join(raiz, "float.html"),
       },
     },
   },

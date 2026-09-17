@@ -1,18 +1,29 @@
-import { DURACOES_PADRAO } from "./duracoes";
+import { FOCOS_POR_CICLO } from "../constants/timer";
 import type { Duracoes, Mode, TimerState } from "../types/timer";
+import { mesclarDuracoes } from "./duracoes";
 
 export function duracaoDoModo(mode: Mode, duracoes: Duracoes): number {
-  return mode === "foco" ? duracoes.focoMs : duracoes.pausaMs;
+  if (mode === "foco") {
+    return duracoes.focoMs;
+  }
+  if (mode === "pausaLonga") {
+    return duracoes.pausaLongaMs;
+  }
+  return duracoes.pausaMs;
 }
 
 export function criarEstadoInicial(
-  duracoes: Duracoes = DURACOES_PADRAO,
+  duracoes?: Partial<Duracoes>,
+  focoNoCiclo = 1,
 ): TimerState {
+  const d = mesclarDuracoes(duracoes);
+  const ciclo = Math.min(FOCOS_POR_CICLO, Math.max(1, focoNoCiclo));
   return {
     mode: "foco",
     phase: "idle",
-    remainingMs: duracoes.focoMs,
-    duracoes,
+    remainingMs: d.focoMs,
+    duracoes: d,
+    focoNoCiclo: ciclo,
     runningSince: null,
     remainingAtRunStart: null,
   };
@@ -80,17 +91,62 @@ export function resetar(state: TimerState): TimerState {
   };
 }
 
+export function aplicarDuracoes(
+  state: TimerState,
+  duracoes: Duracoes,
+): TimerState {
+  const proximo = { ...state, duracoes };
+  if (proximo.phase !== "idle") {
+    return proximo;
+  }
+  return {
+    ...proximo,
+    remainingMs: duracaoDoModo(proximo.mode, duracoes),
+  };
+}
+
+function proximoAposOverlay(state: TimerState): Pick<
+  TimerState,
+  "mode" | "focoNoCiclo"
+> {
+  if (state.mode === "foco") {
+    if (state.focoNoCiclo >= FOCOS_POR_CICLO) {
+      return { mode: "pausaLonga", focoNoCiclo: state.focoNoCiclo };
+    }
+    return { mode: "pausa", focoNoCiclo: state.focoNoCiclo };
+  }
+  if (state.mode === "pausaLonga") {
+    return { mode: "foco", focoNoCiclo: 1 };
+  }
+  return {
+    mode: "foco",
+    focoNoCiclo: Math.min(FOCOS_POR_CICLO, state.focoNoCiclo + 1),
+  };
+}
+
+function irParaProximoModo(state: TimerState): TimerState {
+  const proximo = proximoAposOverlay(state);
+  return {
+    ...state,
+    mode: proximo.mode,
+    focoNoCiclo: proximo.focoNoCiclo,
+    phase: "idle",
+    remainingMs: duracaoDoModo(proximo.mode, state.duracoes),
+    runningSince: null,
+    remainingAtRunStart: null,
+  };
+}
+
 export function dispensarOverlay(state: TimerState): TimerState {
   if (state.phase !== "overlay") {
     return state;
   }
-  const proximo: Mode = state.mode === "foco" ? "pausa" : "foco";
-  return {
-    ...state,
-    mode: proximo,
-    phase: "idle",
-    remainingMs: duracaoDoModo(proximo, state.duracoes),
-    runningSince: null,
-    remainingAtRunStart: null,
-  };
+  return irParaProximoModo(state);
+}
+
+export function pular(state: TimerState): TimerState {
+  if (state.phase === "overlay") {
+    return state;
+  }
+  return irParaProximoModo(state);
 }

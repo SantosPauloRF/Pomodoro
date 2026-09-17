@@ -1,6 +1,6 @@
 # Pomodoro
 
-Timer de **foco / pausa** para Windows: janela nativa (Tauri 2 + Vite + React + TypeScript). Ao zerar, um backdrop cobre todos os monitores e toca um alerta. Sem login e sem persistência neste MVP.
+Timer de **foco / pausa** para Windows: janela nativa (Tauri 2 + Vite + React + TypeScript). Ciclo de 4 focos (3 pausas curtas + 1 pausa longa). Ao zerar, um backdrop cobre todos os monitores e toca um alerta. Durações na tela **Configurações**. Ao minimizar, um ícone flutuante arrastável reabre o app.
 
 ## Pré-requisitos
 

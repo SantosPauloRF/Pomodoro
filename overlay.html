@@ -4,9 +4,64 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pomodoro</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: transparent;
+        color: #fff;
+        font-family: "Segoe UI", system-ui, sans-serif;
+      }
+      .overlay-fallback {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        text-align: center;
+        padding: 2rem;
+        background: rgba(0, 0, 0, 0.5);
+        animation: overlay-entrar 0.45s ease-out;
+      }
+      @keyframes overlay-entrar {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .overlay-fallback button {
+        font: inherit;
+        padding: 0.55rem 1.25rem;
+        cursor: pointer;
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div class="overlay-fallback">
+        <h1>Hora de parar</h1>
+        <p>A sessão acabou.</p>
+        <button id="fallback-ok" type="button">Entendi</button>
+      </div>
+    </div>
+    <script>
+      function dispensarBackdrop() {
+        const core = window.__TAURI__ && window.__TAURI__.core;
+        if (core && core.invoke) {
+          core.invoke("fechar_overlay");
+        }
+      }
+      document.getElementById("fallback-ok")?.addEventListener("click", dispensarBackdrop);
+      window.addEventListener("keydown", function (evento) {
+        if (evento.key === "Escape") {
+          dispensarBackdrop();
+        }
+      });
+    </script>
     <script type="module" src="/src/overlay-main.tsx"></script>
   </body>
 </html>

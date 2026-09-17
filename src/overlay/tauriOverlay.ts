@@ -14,6 +14,14 @@ export async function fecharOverlayNativo(): Promise<void> {
   await invoke("fechar_overlay");
 }
 
+export async function mostrarFlutuante(): Promise<void> {
+  await invoke("mostrar_flutuante");
+}
+
+export async function restaurarPrincipal(): Promise<void> {
+  await invoke("restaurar_principal");
+}
+
 export function aoDispensarOverlay(cb: () => void): Promise<() => void> {
   return listen("overlay-dispensado", () => {
     cb();
@@ -22,8 +30,16 @@ export function aoDispensarOverlay(cb: () => void): Promise<() => void> {
 
 export function motivoDoOverlay(): Mode {
   const injetado = window.__POMODORO_MOTIVO__;
-  if (injetado === "pausa" || injetado === "foco") {
+  if (
+    injetado === "pausaLonga" ||
+    injetado === "pausa" ||
+    injetado === "foco"
+  ) {
     return injetado;
   }
-  return window.location.hash.replace("#", "") === "pausa" ? "pausa" : "foco";
+  const hash = window.location.hash.replace("#", "");
+  if (hash === "pausaLonga" || hash === "pausa") {
+    return hash;
+  }
+  return "foco";
 }

@@ -11,7 +11,8 @@ Fonte do plano de produto e da ordem de trabalho. Lei curta: [AGENTS.md](./AGENT
 - Programa **Windows** (janela nativa, `.exe` — não no navegador).
 - Stack: **Tauri 2 + Vite + React + TypeScript**.
 - MVP: timer clássico (iniciar, pausar, resetar; foco e pausa) e, ao zerar, **backdrop em todos os monitores** pedindo para parar + **som de alerta**.
-- Sem persistência, sem login, sem notificação toast (o interruptor é o backdrop).
+- Pós-MVP imediato: durações editáveis, ciclo 4 focos + pausa longa, ícone flutuante arrastável ao minimizar.
+- Sem login, sem banco, sem notificação toast (o interruptor é o backdrop). Durações do ciclo no `localStorage`.
 
 ## Runtime
 
@@ -20,7 +21,7 @@ Fonte do plano de produto e da ordem de trabalho. Lei curta: [AGENTS.md](./AGENT
 - Rust só no *shell* (janela, monitores, overlay). Precisa de `rustup` no Windows. Se Rust for bloqueio: Electron, ainda como `.exe`.
 - Next.js não cabe neste shell.
 
-**Fora do MVP:** banco, auth, Docker, fila, hospedagem, histórico, durações editáveis, bandeja do sistema.
+**Fora do MVP:** banco, auth, Docker, fila, hospedagem, histórico, bandeja do sistema.
 
 ## Comportamento do MVP
 
@@ -33,27 +34,31 @@ stateDiagram-v2
   RunningFoco --> PausedFoco: pausar
   PausedFoco --> RunningFoco: retomar
   RunningFoco --> OverlayParar: zerar
-  OverlayParar --> IdlePausa: dispensar
+  OverlayParar --> IdlePausa: dispensarFoco1a3
+  OverlayParar --> IdlePausaLonga: dispensarFoco4
   IdlePausa --> RunningPausa: iniciar
-  RunningPausa --> PausedPausa: pausar
-  PausedPausa --> RunningPausa: retomar
-  RunningPausa --> OverlayParar: zerar
-  OverlayParar --> IdleFoco: dispensarAposPausa
+  RunningPausa --> OverlayVoltar: zerar
+  OverlayVoltar --> IdleFoco: dispensar
+  IdlePausaLonga --> RunningPausaLonga: iniciar
+  RunningPausaLonga --> OverlayVoltar: zerar
+  OverlayVoltar --> IdleFoco: dispensarAposPausaLonga
   RunningFoco --> IdleFoco: resetar
-  PausedFoco --> IdleFoco: resetar
   RunningPausa --> IdlePausa: resetar
-  PausedPausa --> IdlePausa: resetar
+  RunningPausaLonga --> IdlePausaLonga: resetar
 ```
 
-- **Resetar** volta o modo atual ao tempo cheio, sem pular de modo e sem abrir o backdrop.
-- Durações **ainda não são lei**. Valores iniciais no código: **25 min foco / 5 min pausa**. Sem pausa longa neste MVP.
+- **Resetar** volta o modo atual ao tempo cheio, sem pular de modo/ciclo e sem abrir o backdrop.
+- Durações editáveis na configuração. Iniciais: **25 min foco / 5 min pausa / 15 min pausa longa**.
+- Ciclo: (foco + pausa) × 3, depois 4º foco + pausa longa.
 
 ### Ao zerar
 
-- Uma janela por monitor: fullscreen, always-on-top, backdrop escuro cobrindo a barra de tarefas.
+- Cobre cada monitor no tamanho da tela do Windows (incluindo a barra de tarefas).
+- Backdrop **50% transparente**, com animação ao abrir.
 - Fim do foco: copy pedindo para **parar**. Fim da pausa: pedir para **voltar ao foco**.
 - Som de alerta ao aparecer (um toque + overlay até o clique, salvo pedido de loop).
-- Botão para dispensar (ex.: “Entendi” / “Começar a pausa”). O próximo modo **não** inicia sozinho.
+- **Entendi** fecha o overlay e mostra o próximo modo **parado** (Iniciar pausa / Iniciar foco).
+- **Pular** na tela do timer avança o modo atual sem esperar o tempo e sem overlay.
 
 Identidade visual: **TBD**. UI limpa; overlay com contraste alto. Não inventar paleta “genérica AI” como marca.
 
@@ -66,17 +71,17 @@ Sem cards. Fatias neste chat (ou `pomodoro-dev`). Commit só se o usuário pedir
 3. ~~Domínio do timer (estados, durações iniciais, unitários).~~
 4. ~~Tela: tempo, modo, iniciar / pausar / resetar.~~
 5. ~~Interruptor: overlay em todos os monitores + som.~~
+6. Configuração dos ciclos (foco / pausa / pausa longa) + ícone flutuante arrastável ao minimizar.
 
 ## Depois do MVP
 
-- Durações ajustáveis, pausa longa, histórico.
+- Histórico.
 - Bandeja / continuar com a janela fechada.
 - Paleta e tipografia.
 - Atalho extra no menu Iniciar / área de trabalho além do que o instalador Tauri já criar.
 
 ## TBD
 
-- Confirmar 25/5 como lei ou só valor inicial.
 - Som em loop vs um toque.
 - Visual.
 - Electron só se Rust for bloqueio.

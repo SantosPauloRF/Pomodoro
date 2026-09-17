@@ -1,0 +1,9 @@
+[[permission]]
+identifier = "allow-app-commands"
+description = "Comandos do Pomodoro (overlay e ícone flutuante)"
+commands.allow = [
+  "abrir_overlay",
+  "fechar_overlay",
+  "mostrar_flutuante",
+  "restaurar_principal"
+]

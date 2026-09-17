@@ -27,25 +27,34 @@ Não introduzir banco, fila, Docker ou provedor de deploy. Electron só se Rust/
 |------|--------|
 | UI / bundler | Vite + React |
 | Linguagem | TypeScript (UI); Rust só no shell Tauri |
-| Persistência | Nenhuma no MVP |
+| Persistência | Durações do ciclo no `localStorage` da janela |
 | Auth | Sem login |
 | Deploy | `.exe` / instalador Tauri no Windows |
 | Trello | Não se aplica |
 
 ## Timer
 
-- Modos: **foco** e **pausa**. Iniciar, pausar, resetar.
+- Modos: **foco**, **pausa** (curta) e **pausa longa**. Iniciar, pausar, resetar.
 - Relógio de parede (`Date.now`), não só `setInterval`.
-- Resetar: volta o tempo cheio do modo atual; **não** troca de modo; **não** abre overlay.
+- Resetar: volta o tempo cheio do modo atual; **não** troca de modo nem o passo do ciclo; **não** abre overlay.
 - Ao zerar: overlay (abaixo). O próximo modo **não** começa sozinho.
-- Durações: **não são lei**. Valores iniciais no código: 25 min foco / 5 min pausa. Sem pausa longa no MVP. Sem durações editáveis no MVP.
+- Ciclo fixo: foco + pausa **3 vezes**, depois o **4º foco** e uma **pausa longa**; em seguida recomeça.
+- Durações **editáveis** na tela de configuração. Valores iniciais: 25 min foco / 5 min pausa / 15 min pausa longa. Não são lei.
+
+### Minimizar
+
+- Ao minimizar a janela principal **ou clicar fora dela**: esconder o app e mostrar um **ícone flutuante** (always-on-top).
+- O ícone é **arrastável** e **só o círculo** — sem fundo branco de janela. Clique (sem arrastar) restaura a janela principal.
+- Ao zerar o timer, o backdrop abre **mesmo minimizado**; o flutuante some e a janela principal volta. Escape ou Entendi dispensa.
 
 ### Ao zerar (interruptor)
 
-- Uma janela por **todos** os monitores: fullscreen, always-on-top, backdrop escuro (cobre a barra de tarefas).
+- Cobre **todos** os monitores (tamanho da tela do Windows, incluindo a barra de tarefas).
+- Backdrop **50% transparente**, com **animação ao abrir**.
 - Fim do foco: copy em português pedindo para **parar**. Fim da pausa: pedir para **voltar ao foco**.
 - Som de alerta ao aparecer. Padrão até o usuário decidir: **um toque** + overlay parado até dispensar (loop = TBD).
-- Botão para dispensar. Sem toast do Windows.
+- **Entendi** fecha o overlay e mostra a tela do **próximo modo parado** (iniciar pausa / iniciar foco). Não começa sozinho.
+- **Pular** (na tela do timer): avança foco ou pausa sem esperar o tempo; não abre overlay.
 
 ## UI deste app
 

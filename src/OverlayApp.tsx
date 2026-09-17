@@ -7,7 +7,7 @@ export default function OverlayApp() {
     <OverlayPanel
       motivo={motivo}
       onDispensar={() => {
-        void fecharOverlayNativo();
+        void fecharOverlayNativo().catch(() => undefined);
       }}
     />
   );
