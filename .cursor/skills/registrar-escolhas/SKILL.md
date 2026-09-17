@@ -2,7 +2,7 @@
 name: registrar-escolhas
 description: >-
   Grava escolhas do Pomodoro no arquivo canônico na mesma sessão. Use
-  proactively when the user decides stack, timer, persistência, UI, Trello,
+  proactively when the user decides stack, timer, persistência, UI,
   convenção, diz que a regra é global ou só deste projeto, or pede para
   registrar / documentar / lembrar uma decisão.
 ---
@@ -11,7 +11,7 @@ description: >-
 
 O chat **não** é a fonte da verdade. Na mesma sessão em que o usuário decidir, persistir.
 
-Mapa de arquivos: skill `mapa-globais`. Lei curta: [AGENTS.md](../../../AGENTS.md).
+Mapa de arquivos: skill `mapa-globais`. Lei curta: [AGENTS.md](../../../AGENTS.md). Plano: [PLANEJAMENTO.md](../../../PLANEJAMENTO.md).
 
 ## Passos
 
@@ -20,10 +20,11 @@ Mapa de arquivos: skill `mapa-globais`. Lei curta: [AGENTS.md](../../../AGENTS.m
 
 | Sinal | Destino |
 |-------|---------|
-| Trello: colunas, labels, checklists, never-move, Branch de card | `C:\Users\santo\.cursor\AGENTS.md` + Changelog de lá |
+| Trello (qualquer) | **Não gravar nem criar.** Neste app não usamos Trello. |
 | Código: testes, Husky, CI, env, one-shot, DoD | `C:\Users\santo\.cursor\AGENTS-codigo.md` + Changelog de lá |
 | UI e o usuário disse **global** | `C:\Users\santo\.cursor\skills\ui-padroes\SKILL.md` + Changelog de lá |
 | Lei deste app (“não faça X”, stack, escopo) | `AGENTS.md` deste repo → bloco Decisões + Changelog |
+| Plano / MVP / ordem de fatias | `PLANEJAMENTO.md` (+ `AGENTS.md` se for “não reabrir”) |
 | Como fazer um fluxo deste app | Skill `.cursor/skills/<nome>/SKILL.md` (+ `Skills.md` se for skill nova) |
 | Produto/timer/persistência deste app | `.cursor/skills/produto-pomodoro/SKILL.md` e, se for “não reabrir”, também `AGENTS.md` |
 
@@ -38,7 +39,7 @@ Mapa de arquivos: skill `mapa-globais`. Lei curta: [AGENTS.md](../../../AGENTS.m
 - Preferência solta (“talvez Vite”) — confirmar se é decisão.
 - Segredo, `.env` real, senha.
 - Procedimento que já está no global (não duplicar).
-- Board/prefixo Trello inventado. Prefixos só depois do usuário combinar.
+- Board/prefixo Trello: neste app **não** usamos Trello.
 
 ## Ambiguidade
 
