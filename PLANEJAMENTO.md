@@ -62,10 +62,10 @@ Identidade visual: **TBD**. UI limpa; overlay com contraste alto. Não inventar 
 Sem cards. Fatias neste chat (ou `pomodoro-dev`). Commit só se o usuário pedir. Testes unitários + E2E entram na feature (`AGENTS-codigo`); `npm test` / E2E no chat só se pedido ou ao criar os testes da fatia.
 
 1. ~~Gravar este planejamento no repo.~~
-2. Scaffold Windows: Tauri 2 + Vite + React + TS, janela nativa, Husky, Playwright, CI na `main`, README (`rustup`, `tauri dev`, `tauri build`). Ao fim, já abre um programa Windows.
-3. Domínio do timer (estados, durações iniciais, unitários).
-4. Tela: tempo, modo, iniciar / pausar / resetar.
-5. Interruptor: overlay em todos os monitores + som.
+2. ~~Scaffold Windows: Tauri 2 + Vite + React + TS, janela nativa, Husky, Playwright, CI na `main`, README (`rustup`, `tauri dev`, `tauri build`).~~
+3. ~~Domínio do timer (estados, durações iniciais, unitários).~~
+4. ~~Tela: tempo, modo, iniciar / pausar / resetar.~~
+5. ~~Interruptor: overlay em todos os monitores + som.~~
 
 ## Depois do MVP
 

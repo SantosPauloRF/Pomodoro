@@ -1,0 +1,128 @@
+:root {
+  color: #f2f2f2;
+  background: #1c1c1c;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.tela {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #c8c8c8;
+}
+
+.modo {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.tempo {
+  margin: 0.5rem 0 1rem;
+  font-size: 4.5rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.acoes {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+button {
+  appearance: none;
+  border: 1px solid #f2f2f2;
+  background: #f2f2f2;
+  color: #1c1c1c;
+  font: inherit;
+  padding: 0.55rem 1.25rem;
+  cursor: pointer;
+}
+
+button:hover,
+button:focus-visible {
+  background: #ffffff;
+}
+
+button.secundario {
+  background: transparent;
+  color: #f2f2f2;
+}
+
+button.secundario:hover,
+button.secundario:focus-visible {
+  background: #2a2a2a;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem;
+  background: #000;
+  color: #fff;
+  text-align: center;
+}
+
+.overlay h1 {
+  color: #fff;
+  font-size: 2.4rem;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.overlay p {
+  margin: 0;
+  max-width: 28rem;
+  font-size: 1.15rem;
+}
+
+.overlay button {
+  margin-top: 0.75rem;
+  min-width: 10rem;
+}
