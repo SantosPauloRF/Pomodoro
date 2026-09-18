@@ -2,7 +2,7 @@
 
 Como o Pomodoro instalado no Windows **pede atualização** em cada computador. Lei curta: [AGENTS.md](./AGENTS.md). Produto/timer: [PLANEJAMENTO.md](./PLANEJAMENTO.md). Stack: skill `produto-pomodoro`.
 
-Isto é **plano**. O updater ainda **não** está ligado no código.
+Isto é o plano **já ligado no código** (plugin updater + diálogo ao abrir). Authenticode e workflow automático de Release continuam TBD.
 
 ## Objetivo
 
@@ -47,7 +47,7 @@ PC **offline**: não vê o aviso. Não é falha.
 - Chave **pública**: no `tauri.conf` (pode ir no git).
 - Certificado Authenticode da Microsoft: **TBD**. Sem ele o SmartScreen pode avisar “Windows protegeu o PC”; o update Tauri ainda funciona.
 
-## UX (quando implementar)
+## UX
 
 - Checagem **ao abrir** a janela principal. Sem checar a cada minuto.
 - Diálogo: há uma atualização; o que mudou se o Release tiver notas; botões **Atualizar** e **Agora não**.
@@ -63,10 +63,10 @@ PC **offline**: não vê o aviso. Não é falha.
 
 ## Ordem quando for implementar
 
-1. Gerar par de chaves do updater; gravar privada só em secret; pública no conf.
-2. Ligar `@tauri-apps/plugin-updater` + diálogo em português.
-3. Endpoint `latest.json` no GitHub Releases (URL estável do latest).
-4. Documentar no README: bump de versão, build, publicar Release, o que colar no JSON.
+1. ~~Gerar par de chaves do updater; gravar privada só em secret; pública no conf.~~
+2. ~~Ligar `@tauri-apps/plugin-updater` + diálogo em português.~~
+3. ~~Endpoint `latest.json` no GitHub Releases (URL estável do latest).~~
+4. ~~Documentar no README: bump de versão, build, publicar Release, o que colar no JSON.~~
 5. (Opcional) workflow na `main` / tag `v*` que faz build + release. CI hoje é lint + unitários; publicar instalador **só** se o usuário pedir.
 
 ## TBD

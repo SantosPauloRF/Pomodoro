@@ -1,8 +1,19 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { tocarAlerta } from "./audio/alerta";
+import {
+  baixarEInstalar,
+  checarAtualizacao,
+  type AtualizacaoEncontrada,
+} from "./atualizacao/checar";
 import { ConfigScreen } from "./components/ConfigScreen";
 import { OverlayPanel } from "./components/OverlayPanel";
+import { PedidoAtualizacao } from "./components/PedidoAtualizacao";
 import { TimerScreen } from "./components/TimerScreen";
+import { COPY } from "./constants/copy";
+import {
+  pedidoAtualizacaoNaBusca,
+  podeMostrarPedidoAtualizacao,
+} from "./domain/atualizacao";
 import {
   duracoesDaBusca,
   focoNoCicloDaBusca,
@@ -39,6 +50,35 @@ export default function App() {
     criarEstadoInicial(duracoes, focoNoCicloDaBusca(window.location.search)),
   );
   const [tela, setTela] = useState<"timer" | "config">("timer");
+  const [pedido, setPedido] = useState<{ versao: string; notas: string } | null>(
+    () =>
+      pedidoAtualizacaoNaBusca(window.location.search)
+        ? { versao: "prévia", notas: "" }
+        : null,
+  );
+  const [recusado, setRecusado] = useState(false);
+  const [baixando, setBaixando] = useState(false);
+  const [erroAtualizacao, setErroAtualizacao] = useState<string | null>(null);
+  const encontradaRef = useRef<AtualizacaoEncontrada | null>(null);
+
+  useEffect(() => {
+    if (pedidoAtualizacaoNaBusca(window.location.search) || !isTauri()) {
+      return;
+    }
+    let ativo = true;
+    void checarAtualizacao()
+      .then((encontrada) => {
+        if (!ativo || !encontrada) {
+          return;
+        }
+        encontradaRef.current = encontrada;
+        setPedido({ versao: encontrada.versao, notas: encontrada.notas });
+      })
+      .catch(() => {});
+    return () => {
+      ativo = false;
+    };
+  }, []);
 
   useEffect(() => {
     const snap = instantaneoDeEstado(state);
@@ -127,6 +167,27 @@ export default function App() {
     setTela("timer");
   }
 
+  async function atualizarAgora() {
+    setBaixando(true);
+    setErroAtualizacao(null);
+    const encontrada = encontradaRef.current;
+    if (!encontrada) {
+      setBaixando(false);
+      return;
+    }
+    try {
+      await baixarEInstalar(encontrada.update);
+    } catch {
+      setBaixando(false);
+      setErroAtualizacao(COPY.atualizacaoErro);
+    }
+  }
+
+  const mostrarPedido =
+    pedido != null &&
+    !recusado &&
+    podeMostrarPedidoAtualizacao(state.phase);
+
   return (
     <>
       {tela === "config" ? (
@@ -147,6 +208,18 @@ export default function App() {
       )}
       {state.phase === "overlay" ? (
         <OverlayPanel motivo={state.mode} onDispensar={dispensarNaPagina} />
+      ) : null}
+      {mostrarPedido && pedido ? (
+        <PedidoAtualizacao
+          versao={pedido.versao}
+          notas={pedido.notas}
+          baixando={baixando}
+          erro={erroAtualizacao}
+          onAtualizar={() => {
+            void atualizarAgora();
+          }}
+          onAgoraNao={() => setRecusado(true)}
+        />
       ) : null}
     </>
   );

@@ -408,6 +408,8 @@ pub fn run() {
             mostrar_flutuante,
             restaurar_principal
         ])
+        .plugin(tauri_plugin_updater::Builder::new().build())
+        .plugin(tauri_plugin_process::init())
         .setup(|app| {
             escutar_minimizar(app.handle());
             Ok(())

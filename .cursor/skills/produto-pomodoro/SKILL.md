@@ -21,7 +21,7 @@ Lei curta: [AGENTS.md](../../../AGENTS.md). Plano e fatias: [PLANEJAMENTO.md](..
 
 Tauri 2 + Vite + React + TypeScript. Janela nativa; `tauri build` gera `.exe` / instalador. Sem Next.js.
 
-Não introduzir banco, fila, Docker ou provedor tipo Render. Electron só se Rust/`rustup` for bloqueio (pedido explícito). GitHub Releases é o canal do updater — [PLANEJAMENTO-ATUALIZACAO.md](../../../PLANEJAMENTO-ATUALIZACAO.md) — ainda não ligado no código.
+Não introduzir banco, fila, Docker ou provedor tipo Render. Electron só se Rust/`rustup` for bloqueio (pedido explícito). GitHub Releases é o canal do updater — [PLANEJAMENTO-ATUALIZACAO.md](../../../PLANEJAMENTO-ATUALIZACAO.md).
 
 | Item | Estado |
 |------|--------|
@@ -30,7 +30,7 @@ Não introduzir banco, fila, Docker ou provedor tipo Render. Electron só se Rus
 | Persistência | Durações do ciclo no `localStorage` da janela |
 | Auth | Sem login |
 | Deploy | `.exe` / instalador Tauri no Windows |
-| Atualização | Plano em `PLANEJAMENTO-ATUALIZACAO.md` (GitHub Releases + updater). **Ainda não no código.** |
+| Atualização | GitHub Releases + updater Tauri; o app pede confirmação ao abrir |
 | Trello | Não se aplica |
 
 Instalador: `npm run tauri build` → NSIS em `src-tauri/target/release/bundle/nsis/`. Última página sugere **atalho na área de trabalho** (marcado). Atalho no Menu Iniciar é criado. **Barra de tarefas:** o Windows não permite o instalador fixar; o usuário fixa pelo Menu Iniciar ou pelo ícone depois de abrir o app.

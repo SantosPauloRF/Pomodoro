@@ -109,4 +109,26 @@ test.describe("timer Pomodoro", () => {
       "Pausar",
     );
   });
+
+  test("o pedido de atualização aparece e pode ser recusado", async ({
+    page,
+  }) => {
+    await page.goto("/?atualizacao=1");
+    await expect(page.getByTestId("update-dialog")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Há uma atualização" })).toBeVisible();
+    await page.getByRole("button", { name: "Agora não" }).click();
+    await expect(page.getByTestId("update-dialog")).toHaveCount(0);
+  });
+
+  test("o pedido de atualização espera o overlay fechar", async ({ page }) => {
+    await page.goto("/?focoMs=1200&atualizacao=1");
+    await expect(page.getByTestId("update-dialog")).toBeVisible();
+    await page
+      .getByRole("button", { name: "Iniciar foco" })
+      .evaluate((botao) => (botao as HTMLButtonElement).click());
+    await expect(page.getByTestId("overlay")).toBeVisible({ timeout: 5_000 });
+    await expect(page.getByTestId("update-dialog")).toHaveCount(0);
+    await page.getByRole("button", { name: "Entendi" }).click();
+    await expect(page.getByTestId("update-dialog")).toBeVisible();
+  });
 });

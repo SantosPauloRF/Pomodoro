@@ -50,11 +50,12 @@ Se a escolha for global, **não** copiar o parágrafo para este repo — no máx
 8. Ciclo: **4 focos** — pausa curta depois dos focos 1–3; pausa longa depois do 4º. Durações editáveis na tela de configuração (iniciais 25 / 5 / 15 min).
 9. Ao **minimizar** ou **clicar fora** da janela: ícone flutuante always-on-top, **arrastável**, tomate com relógio **sem fundo de janela**; **anel de progresso** em volta de todo o widget; interior do círculo com backdrop **50% transparente** (igual ao overlay ao zerar); no centro **horário atual**, **dia da semana** e **dia do mês**; **play** embaixo por cima do círculo (vira **pause** se o timer estiver rodando); clique no ícone abre de novo a janela.
 10. Commit só se o usuário pedir. Sem checklist Trello. Pedidos avulsos: sem testes no chat, salvo pedido ou ao criar/alterar testes da fatia.
-11. Plano vigente: [PLANEJAMENTO.md](./PLANEJAMENTO.md). Atualização do app instalado: [PLANEJAMENTO-ATUALIZACAO.md](./PLANEJAMENTO-ATUALIZACAO.md) (ainda não ligado no código).
+11. Plano vigente: [PLANEJAMENTO.md](./PLANEJAMENTO.md). Atualização do app instalado: [PLANEJAMENTO-ATUALIZACAO.md](./PLANEJAMENTO-ATUALIZACAO.md) (GitHub Releases; pede confirmação ao abrir).
 12. **Entendi** leva à tela do próximo modo (pausa ou foco) **parado**, para o usuário iniciar.
 13. **Pular** avança o modo atual (foco ou pausa) sem esperar o tempo; não abre overlay.
 14. Ícone do app (janela, `.exe`, barra de tarefas) e do flutuante: **tomate com relógio**.
 15. Visual da janela: fundo escuro, anel de progresso, acento coral, cartões e botão-pílula — no modelo da referência escolhida. Copy em português.
+16. Atualização: plugin updater Tauri; cada PC instalado pelo NSIS consulta o GitHub Releases ao abrir e **pede** para atualizar (Atualizar / Agora não). Sem instalação silenciosa.
 
 Som em loop vs um toque: **TBD** (ver skill `produto-pomodoro`).
 
@@ -89,3 +90,4 @@ Som em loop vs um toque: **TBD** (ver skill `produto-pomodoro`).
 | 2026-09-17 | Ícone flutuante com anel de progresso em volta de todo o widget e backdrop 50% no círculo. |
 | 2026-09-17 | Play/pause no flutuante, embaixo por cima do círculo. |
 | 2026-09-18 | Plano de atualização: GitHub Releases + updater Tauri; cada PC instalado pede update ao abrir. |
+| 2026-09-18 | Updater ligado: checagem ao abrir, diálogo em português, chave pública no conf. |

@@ -13,6 +13,7 @@ Fonte do plano de produto e da ordem de trabalho. Lei curta: [AGENTS.md](./AGENT
 - MVP: timer clássico (iniciar, pausar, resetar; foco e pausa) e, ao zerar, **backdrop em todos os monitores** pedindo para parar + **som de alerta**.
 - Pós-MVP imediato: durações editáveis, ciclo 4 focos + pausa longa, ícone flutuante arrastável ao minimizar.
 - Sem login, sem banco, sem notificação toast (o interruptor é o backdrop). Durações do ciclo no `localStorage`.
+- App instalado pelo NSIS consulta o GitHub Releases **ao abrir** e pede atualização (Atualizar / Agora não). Detalhe: [PLANEJAMENTO-ATUALIZACAO.md](./PLANEJAMENTO-ATUALIZACAO.md).
 
 ## Runtime
 
@@ -21,7 +22,7 @@ Fonte do plano de produto e da ordem de trabalho. Lei curta: [AGENTS.md](./AGENT
 - Rust só no *shell* (janela, monitores, overlay). Precisa de `rustup` no Windows. Se Rust for bloqueio: Electron, ainda como `.exe`.
 - Next.js não cabe neste shell.
 
-**Fora do MVP:** banco, auth, Docker, fila, histórico, bandeja do sistema. Atualização em cada PC: plano em [PLANEJAMENTO-ATUALIZACAO.md](./PLANEJAMENTO-ATUALIZACAO.md) (GitHub Releases; ainda não no código).
+**Fora do MVP:** banco, auth, Docker, fila, histórico, bandeja do sistema. Atualização em cada PC: [PLANEJAMENTO-ATUALIZACAO.md](./PLANEJAMENTO-ATUALIZACAO.md) (GitHub Releases + updater Tauri).
 
 ## Comportamento do MVP
 
@@ -75,7 +76,6 @@ Sem cards. Fatias neste chat (ou `pomodoro-dev`). Commit só se o usuário pedir
 
 ## Depois do MVP
 
-- Atualização automática: [PLANEJAMENTO-ATUALIZACAO.md](./PLANEJAMENTO-ATUALIZACAO.md).
 - Histórico.
 - Bandeja / continuar com a janela fechada.
 - Atalho extra no menu Iniciar / área de trabalho além do que o instalador Tauri já criar.

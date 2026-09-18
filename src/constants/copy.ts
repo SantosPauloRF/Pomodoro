@@ -42,4 +42,11 @@ export const COPY = {
   configPausaLonga: "Pausa longa (minutos)",
   configErro: "Use minutos inteiros entre 1 e 180.",
   iconeFlutuante: "Pomodoro",
+  atualizacaoTitulo: "Há uma atualização",
+  atualizacaoTexto: "Uma versão nova do Pomodoro está disponível.",
+  atualizacaoAtualizar: "Atualizar",
+  atualizacaoAgoraNao: "Agora não",
+  atualizacaoBaixando: "Baixando atualização…",
+  atualizacaoErro:
+    "Não foi possível baixar a atualização. Tente de novo quando a internet estiver ok.",
 } as const;

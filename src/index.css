@@ -548,6 +548,58 @@ body.janela-overlay #root {
   min-width: 10rem;
 }
 
+.pedido-atualizacao {
+  position: fixed;
+  inset: 0;
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: rgba(16, 20, 28, 0.5);
+  color: var(--texto);
+  text-align: center;
+}
+
+.pedido-atualizacao-caixa {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  max-width: 28rem;
+  padding: 2rem 1.75rem;
+  border: 1px solid var(--borda);
+  border-radius: 1.4rem;
+  background: var(--fundo-cartao);
+}
+
+.pedido-atualizacao-caixa h1 {
+  color: var(--texto);
+  font-size: 1.6rem;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.pedido-atualizacao-caixa p {
+  margin: 0;
+  color: var(--texto-suave);
+}
+
+.pedido-atualizacao-notas {
+  white-space: pre-wrap;
+  text-align: left;
+  max-height: 8rem;
+  overflow: auto;
+}
+
+.pedido-atualizacao-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 0.25rem;
+}
+
 .icone-flutuante {
   position: relative;
   width: 120px;

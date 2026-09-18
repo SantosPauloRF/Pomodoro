@@ -32,3 +32,5 @@ coverage
 # Env (não há secrets no MVP; manter o hábito)
 .env
 .env.*.local
+.tauri-updater.key
+.tauri-updater.key.pub
