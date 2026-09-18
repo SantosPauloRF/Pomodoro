@@ -13,8 +13,19 @@ export function isTauri(): boolean {
   return typeof window !== "undefined" && "__TAURI_INTERNALS__" in window;
 }
 
-export async function abrirOverlayNativo(motivo: Mode): Promise<void> {
-  await invoke("abrir_overlay", { motivo });
+export function recadoDoOverlay(): string | null {
+  const injetado = window.__POMODORO_RECADO__;
+  if (typeof injetado === "string" && injetado.trim() !== "") {
+    return injetado;
+  }
+  return null;
+}
+
+export async function abrirOverlayNativo(
+  motivo: Mode,
+  recado: string | null = null,
+): Promise<void> {
+  await invoke("abrir_overlay", { motivo, recado });
 }
 
 export async function fecharOverlayNativo(): Promise<void> {

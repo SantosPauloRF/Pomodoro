@@ -2,6 +2,8 @@
 
 Timer de **foco / pausa** para Windows: janela nativa (Tauri 2 + Vite + React + TypeScript). Ciclo de 4 focos (3 pausas curtas + 1 pausa longa). Ao zerar, um backdrop cobre todos os monitores e toca um alerta. Durações na tela **Configurações**. Ao minimizar, um ícone flutuante arrastável reabre o app.
 
+Sons do overlay: clássicos gerados no app e recorte do pacote [Notifications](https://github.com/akx/Notifications) (CC0). Licença em `src/assets/sons/LICENSE.txt`.
+
 ## Pré-requisitos
 
 - Node.js 24 (npm)
@@ -49,6 +51,8 @@ Na instalação:
 A primeira build baixa o compilador Rust e o WebView2 bootstrapper se faltar; pode demorar vários minutos.
 
 ## Publicar atualização (PCs já instalados)
+
+No chat, **publicar release** = o agente faz os 4 passos (versão, build assinado, `latest.json`, GitHub Release). Skill `publicar-release`.
 
 O app instalado, **ao abrir** (com internet), consulta o GitHub Releases. Se a versão remota for maior, pede **Atualizar** ou **Agora não**. Recusar continua na versão atual e pergunta de novo na próxima abertura.
 

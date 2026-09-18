@@ -30,6 +30,7 @@ Fluxo:
 | `mapa-globais` | `.cursor/skills/mapa-globais/` | Dúvida se a regra é global ou deste repo; Trello vs código vs UI |
 | `registrar-escolhas` | `.cursor/skills/registrar-escolhas/` | Usuário escolheu stack, timer, convenção, “só neste projeto”, “isso é global” |
 | `produto-pomodoro` | `.cursor/skills/produto-pomodoro/` | Timer, sessões, foco/pausa, persistência, stack, escopo do app |
+| `publicar-release` | `.cursor/skills/publicar-release/` | Publicar versão: bump, build assinado, `latest.json`, GitHub Release |
 
 Sem `disable-model-invocation` nestas skills, para o agente poder escolhê-las sozinho.
 

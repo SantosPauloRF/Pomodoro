@@ -1,27 +1,15 @@
 import { useLayoutEffect } from "react";
 import { COPY } from "../constants/copy";
+import { textoOverlayPadrao, tituloDoOverlay } from "../domain/overlayCopy";
 import type { Mode } from "../types/timer";
 
 type Props = {
   motivo: Mode;
+  recado?: string | null;
   onDispensar: () => void;
 };
 
-function titulo(motivo: Mode): string {
-  return motivo === "foco" ? COPY.overlayPararTitulo : COPY.overlayVoltarTitulo;
-}
-
-function texto(motivo: Mode): string {
-  if (motivo === "foco") {
-    return COPY.overlayPararTexto;
-  }
-  if (motivo === "pausaLonga") {
-    return COPY.overlayPausaLongaTexto;
-  }
-  return COPY.overlayVoltarTexto;
-}
-
-export function OverlayPanel({ motivo, onDispensar }: Props) {
+export function OverlayPanel({ motivo, recado = null, onDispensar }: Props) {
   useLayoutEffect(() => {
     document.documentElement.classList.add("janela-overlay");
     document.body.classList.add("janela-overlay");
@@ -41,8 +29,8 @@ export function OverlayPanel({ motivo, onDispensar }: Props) {
   return (
     <div className="overlay" data-testid="overlay" role="dialog" aria-modal="true">
       <div className="overlay-caixa">
-        <h1 data-testid="overlay-title">{titulo(motivo)}</h1>
-        <p>{texto(motivo)}</p>
+        <h1 data-testid="overlay-title">{tituloDoOverlay(motivo, recado)}</h1>
+        <p>{textoOverlayPadrao(motivo)}</p>
         <button
           type="button"
           className="botao-principal"

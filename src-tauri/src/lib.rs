@@ -8,8 +8,8 @@ use tauri::{
 const FLOAT_LABEL: &str = "flutuante";
 const FLOAT_LARGURA: f64 = 120.0;
 const FLOAT_ALTURA: f64 = 120.0;
-const JANELA_LARGURA: f64 = 800.0;
-const JANELA_ALTURA: f64 = 700.0;
+const JANELA_LARGURA: f64 = 920.0;
+const JANELA_ALTURA: f64 = 800.0;
 const IGNORAR_BLUR_MS: u64 = 2_000;
 const IGNORAR_BLUR_APOS_MOVE_MS: u64 = 400;
 const FUNDO_TRANSPARENTE: Color = Color(0, 0, 0, 0);
@@ -140,12 +140,26 @@ fn motivo_valido(motivo: &str) -> bool {
     motivo == "foco" || motivo == "pausa" || motivo == "pausaLonga"
 }
 
-fn abrir_overlay_extra(app: &tauri::AppHandle, index: usize, monitor: &Monitor, motivo: &str) {
+fn script_overlay(motivo: &str, recado: Option<&str>) -> String {
+    let recado_js = recado
+        .filter(|texto| !texto.is_empty())
+        .and_then(|texto| serde_json::to_string(texto).ok())
+        .unwrap_or_else(|| "null".to_string());
+    format!("window.__POMODORO_MOTIVO__ = '{motivo}';window.__POMODORO_RECADO__ = {recado_js};")
+}
+
+fn abrir_overlay_extra(
+    app: &tauri::AppHandle,
+    index: usize,
+    monitor: &Monitor,
+    motivo: &str,
+    recado: Option<&str>,
+) {
     let label = format!("overlay-{index}");
     let scale = monitor.scale_factor();
     let pos = monitor.position();
     let size = monitor.size();
-    let script = format!("window.__POMODORO_MOTIVO__ = '{motivo}';");
+    let script = script_overlay(motivo, recado);
 
     let Ok(janela) = WebviewWindowBuilder::new(app, &label, WebviewUrl::App("overlay.html".into()))
         .title("Pomodoro")
@@ -178,7 +192,11 @@ fn abrir_overlay_extra(app: &tauri::AppHandle, index: usize, monitor: &Monitor, 
 }
 
 #[tauri::command]
-fn abrir_overlay(app: tauri::AppHandle, motivo: String) -> Result<(), String> {
+fn abrir_overlay(
+    app: tauri::AppHandle,
+    motivo: String,
+    recado: Option<String>,
+) -> Result<(), String> {
     if !motivo_valido(&motivo) {
         return Err("motivo inválido".into());
     }
@@ -202,6 +220,7 @@ fn abrir_overlay(app: tauri::AppHandle, motivo: String) -> Result<(), String> {
     );
     let _ = main.set_focus();
 
+    let recado_ref = recado.as_deref();
     let monitor_principal = main.current_monitor().ok().flatten();
     if let Ok(monitors) = app.available_monitors() {
         for (index, monitor) in monitors.iter().enumerate() {
@@ -211,7 +230,7 @@ fn abrir_overlay(app: tauri::AppHandle, motivo: String) -> Result<(), String> {
             {
                 continue;
             }
-            abrir_overlay_extra(&app, index, monitor, &motivo);
+            abrir_overlay_extra(&app, index, monitor, &motivo, recado_ref);
         }
     }
 

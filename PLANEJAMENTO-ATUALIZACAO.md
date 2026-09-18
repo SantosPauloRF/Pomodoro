@@ -67,10 +67,21 @@ PC **offline**: não vê o aviso. Não é falha.
 2. ~~Ligar `@tauri-apps/plugin-updater` + diálogo em português.~~
 3. ~~Endpoint `latest.json` no GitHub Releases (URL estável do latest).~~
 4. ~~Documentar no README: bump de versão, build, publicar Release, o que colar no JSON.~~
-5. (Opcional) workflow na `main` / tag `v*` que faz build + release. CI hoje é lint + unitários; publicar instalador **só** se o usuário pedir.
+- (Opcional) workflow na `main` / tag `v*` que faz build + release. CI hoje é lint + unitários; o agente **já** publica ao pedido (skill `publicar-release`). Actions no GitHub **só** se o usuário pedir.
+
+## Pedido: publicar release
+
+Quando o usuário pedir para **publicar release** (ou soltar versão / gerar atualização), o agente faz **os 4 passos**, sem deixar o upload no GitHub para o usuário. Detalhe: skill `publicar-release`.
+
+1. Subir a versão nos três arquivos (`package.json`, `src-tauri/tauri.conf.json`, `src-tauri/Cargo.toml`; lock do crate `pomodoro` se precisar). Patch (`x.y.Z+1`), salvo outro número pedido.
+2. `tauri build` assinado: `TAURI_SIGNING_PRIVATE_KEY` = conteúdo de `.tauri-updater.key` (não commitir a chave; o `tauri build` **não** lê `_PATH`).
+3. Gerar `latest.json` na pasta NSIS (versão, URL `.../releases/download/vX.Y.Z/Pomodoro_X.Y.Z_x64-setup.exe`, texto do `.sig`).
+4. Publicar o GitHub Release (`gh release create`, tag `vX.Y.Z`, sem draft/pre-release) com **só** o `.exe` novo, o `.sig` e o `latest.json`. Devolver a URL. Não instalar o `.exe` novo neste PC.
+
+Commit da versão: só se o usuário pedir (vale a decisão 10 do `AGENTS.md`).
 
 ## TBD
 
 - Authenticode (certificado Windows).
-- Workflow automático de Release vs publicar na mão.
+- Workflow automático de Release no GitHub Actions (o agente já publica ao pedido).
 - Texto das notas de versão (changelog no diálogo vs só “há uma atualização”).

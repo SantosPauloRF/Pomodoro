@@ -44,7 +44,7 @@ Se a escolha for global, **não** copiar o parágrafo para este repo — no máx
 2. Vale `AGENTS-codigo.md` e, em UI, `ui-padroes`.
 3. **Neste app, não usamos Trello.**
 4. Stack: **Tauri 2 + Vite + React + TypeScript**. App Windows nativo (janela + `.exe`). Sem banco, auth, Docker, fila ou hospedagem “de passagem”.
-5. Persistência: **durações do ciclo** no `localStorage` da janela. Sem login, sem banco.
+5. Persistência: **durações do ciclo** e **sons do overlay** no `localStorage` da janela. Sem login, sem banco.
 6. UI e mensagens ao usuário em **português**.
 7. Ao zerar o timer: backdrop fullscreen em **todos os monitores**, **50% transparente**, com **animação ao abrir** + som de alerta; o próximo modo não inicia sozinho.
 8. Ciclo: **4 focos** — pausa curta depois dos focos 1–3; pausa longa depois do 4º. Durações editáveis na tela de configuração (iniciais 25 / 5 / 15 min).
@@ -56,8 +56,11 @@ Se a escolha for global, **não** copiar o parágrafo para este repo — no máx
 14. Ícone do app (janela, `.exe`, barra de tarefas) e do flutuante: **tomate com relógio**.
 15. Visual da janela: fundo escuro, anel de progresso, acento coral, cartões e botão-pílula — no modelo da referência escolhida. Copy em português.
 16. Atualização: plugin updater Tauri; cada PC instalado pelo NSIS consulta o GitHub Releases ao abrir e **pede** para atualizar (Atualizar / Agora não). Sem instalação silenciosa.
+17. Pedido de **publicar release**: o agente faz os 4 passos (versão, build assinado, `latest.json`, GitHub Release). Skill `publicar-release`.
+18. Ícone de lápis na tela do timer: o usuário edita o **próximo** texto do backdrop ao zerar; depois do aviso, volta o texto padrão.
+19. Sons do overlay: **clássicos** gerados no app (Beep, Sino, etc.) e pacote **Notifications** (akx, CC0) em Configurações; um som/altura/loop por modo. Loop toca até **Entendi**. Altura é do app; o volume master do Windows no aparelho ainda vale.
 
-Som em loop vs um toque: **TBD** (ver skill `produto-pomodoro`).
+Som em loop vs um toque: decidido na configuração por modo (decisão 19).
 
 ## Subagentes deste repo
 
@@ -75,6 +78,7 @@ Som em loop vs um toque: **TBD** (ver skill `produto-pomodoro`).
 5. Em UI: `C:\Users\santo\.cursor\skills\ui-padroes\SKILL.md`
 6. [Skills.md](./Skills.md) — qual skill abrir
 7. Skill `produto-pomodoro` se a tarefa for de produto/timer/stack
+8. Skill `publicar-release` se o pedido for publicar / soltar versão
 
 ## Changelog
 
@@ -91,3 +95,8 @@ Som em loop vs um toque: **TBD** (ver skill `produto-pomodoro`).
 | 2026-09-17 | Play/pause no flutuante, embaixo por cima do círculo. |
 | 2026-09-18 | Plano de atualização: GitHub Releases + updater Tauri; cada PC instalado pede update ao abrir. |
 | 2026-09-18 | Updater ligado: checagem ao abrir, diálogo em português, chave pública no conf. |
+| 2026-09-18 | Publicar release: o agente faz os 4 passos (versão, build, latest.json, GitHub Release). |
+| 2026-09-18 | Próximo texto do overlay: ícone na tela principal; vale só o próximo aviso. |
+| 2026-09-18 | Pacote de sons na configuração: som, altura e loop por modo até Entendi. |
+| 2026-09-18 | Pacote Kenney Interface Sounds (CC0) no app; ids sintéticos antigos mapeados. |
+| 2026-09-18 | Clássicos sintéticos de volta + pacote Notifications (akx, CC0); Kenney saiu. |

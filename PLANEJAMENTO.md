@@ -57,7 +57,8 @@ stateDiagram-v2
 - Cobre cada monitor no tamanho da tela do Windows (incluindo a barra de tarefas).
 - Backdrop **50% transparente**, com animação ao abrir.
 - Fim do foco: copy pedindo para **parar**. Fim da pausa: pedir para **voltar ao foco**.
-- Som de alerta ao aparecer (um toque + overlay até o clique, salvo pedido de loop).
+- Dá para editar o **próximo** título do overlay (ícone na tela do timer); depois do aviso, volta o padrão.
+- Som de alerta ao aparecer. Clássicos + pacote Notifications (CC0); som, altura e loop por modo na configuração (loop até Entendi).
 - **Entendi** fecha o overlay e mostra o próximo modo **parado** (Iniciar pausa / Iniciar foco).
 - **Pular** na tela do timer avança o modo atual sem esperar o tempo e sem overlay.
 
@@ -82,5 +83,4 @@ Sem cards. Fatias neste chat (ou `pomodoro-dev`). Commit só se o usuário pedir
 
 ## TBD
 
-- Som em loop vs um toque.
 - Electron só se Rust for bloqueio.

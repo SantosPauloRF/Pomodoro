@@ -27,10 +27,10 @@ Não introduzir banco, fila, Docker ou provedor tipo Render. Electron só se Rus
 |------|--------|
 | UI / bundler | Vite + React |
 | Linguagem | TypeScript (UI); Rust só no shell Tauri |
-| Persistência | Durações do ciclo no `localStorage` da janela |
+| Persistência | Durações do ciclo e sons do overlay no `localStorage` da janela |
 | Auth | Sem login |
 | Deploy | `.exe` / instalador Tauri no Windows |
-| Atualização | GitHub Releases + updater Tauri; o app pede confirmação ao abrir |
+| Atualização | GitHub Releases + updater Tauri; o app pede confirmação ao abrir. Pedido de **publicar release** = skill `publicar-release` (os 4 passos) |
 | Trello | Não se aplica |
 
 Instalador: `npm run tauri build` → NSIS em `src-tauri/target/release/bundle/nsis/`. Última página sugere **atalho na área de trabalho** (marcado). Atalho no Menu Iniciar é criado. **Barra de tarefas:** o Windows não permite o instalador fixar; o usuário fixa pelo Menu Iniciar ou pelo ícone depois de abrir o app.
@@ -56,7 +56,8 @@ Instalador: `npm run tauri build` → NSIS em `src-tauri/target/release/bundle/n
 - Cobre **todos** os monitores (tamanho da tela do Windows, incluindo a barra de tarefas).
 - Backdrop **50% transparente**, com **animação ao abrir**.
 - Fim do foco: copy em português pedindo para **parar**. Fim da pausa: pedir para **voltar ao foco**.
-- Som de alerta ao aparecer. Padrão até o usuário decidir: **um toque** + overlay parado até dispensar (loop = TBD).
+- Ícone de lápis na tela do timer: edita o **próximo** título do overlay. Depois que o aviso aparece e o usuário dispensa, volta o texto padrão até editar de novo.
+- Som de alerta ao aparecer. Em Configurações: sons **clássicos** (gerados no app) e o pacote **Notifications** de akx (CC0, `src/assets/sons/`) por modo (foco / pausa / pausa longa), **altura** própria e **loop** (repete até Entendi; senão um toque). A altura é do app; o volume master do Windows no aparelho ainda vale.
 - **Entendi** fecha o overlay e mostra a tela do **próximo modo parado** (iniciar pausa / iniciar foco). Não começa sozinho.
 - **Pular** (na tela do timer): avança foco ou pausa sem esperar o tempo; não abre overlay.
 

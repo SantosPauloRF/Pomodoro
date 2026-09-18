@@ -22,11 +22,13 @@ import {
 
 type Props = {
   state: TimerState;
+  recadoPendente?: boolean;
   onIniciar: () => void;
   onPausar: () => void;
   onResetar: () => void;
   onPular: () => void;
   onAbrirConfig: () => void;
+  onEditarRecado: () => void;
 };
 
 function rotuloModo(mode: Mode): string {
@@ -76,11 +78,13 @@ function recado(mode: Mode, phase: TimerState["phase"]): string {
 
 export function TimerScreen({
   state,
+  recadoPendente = false,
   onIniciar,
   onPausar,
   onResetar,
   onPular,
   onAbrirConfig,
+  onEditarRecado,
 }: Props) {
   const progresso = progressoRestante(
     state.remainingMs,
@@ -98,7 +102,18 @@ export function TimerScreen({
   return (
     <main className="tela">
       <header className="topo">
-        <span className="topo-vazio" />
+        <button
+          type="button"
+          className={
+            recadoPendente ? "botao-icone botao-icone-marcado" : "botao-icone"
+          }
+          aria-label={COPY.editarRecado}
+          aria-pressed={recadoPendente}
+          data-testid="edit-overlay-copy-button"
+          onClick={onEditarRecado}
+        >
+          <IconeLapis className="icone" />
+        </button>
         <button
           type="button"
           className="botao-icone"

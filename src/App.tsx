@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { tocarAlerta } from "./audio/alerta";
+import { pararSomOverlay, prepararAudio, tocarSomOverlay } from "./audio/player";
 import {
   baixarEInstalar,
   checarAtualizacao,
   type AtualizacaoEncontrada,
 } from "./atualizacao/checar";
 import { ConfigScreen } from "./components/ConfigScreen";
+import { EditarRecadoOverlay } from "./components/EditarRecadoOverlay";
 import { OverlayPanel } from "./components/OverlayPanel";
 import { PedidoAtualizacao } from "./components/PedidoAtualizacao";
 import { TimerScreen } from "./components/TimerScreen";
@@ -18,6 +19,11 @@ import {
   duracoesDaBusca,
   focoNoCicloDaBusca,
 } from "./domain/duracoes";
+import { somDoModo, sonsPadrao } from "./domain/sons";
+import {
+  normalizarRecadoOverlay,
+  tituloOverlayPadrao,
+} from "./domain/overlayCopy";
 import {
   aplicarDuracoes,
   criarEstadoInicial,
@@ -40,7 +46,9 @@ import {
 } from "./overlay/tauriOverlay";
 import { gravarDuracoesLocal, lerDuracoesLocal } from "./storage/duracoes";
 import { gravarInstantaneo } from "./storage/instantaneo";
-import type { Duracoes } from "./types/timer";
+import { gravarRecadoOverlay, lerRecadoOverlay } from "./storage/recadoOverlay";
+import { gravarSonsLocal, lerSonsLocal } from "./storage/sons";
+import type { SonsConfig } from "./domain/sons";
 
 export default function App() {
   const duracoes = useMemo(() => {
@@ -60,6 +68,16 @@ export default function App() {
   const [baixando, setBaixando] = useState(false);
   const [erroAtualizacao, setErroAtualizacao] = useState<string | null>(null);
   const encontradaRef = useRef<AtualizacaoEncontrada | null>(null);
+  const [proximoRecado, setProximoRecado] = useState<string | null>(
+    () => lerRecadoOverlay(),
+  );
+  const [editandoRecado, setEditandoRecado] = useState(false);
+  const [sons, setSons] = useState<SonsConfig>(() => lerSonsLocal() ?? sonsPadrao());
+
+  function consumirRecado() {
+    setProximoRecado(null);
+    gravarRecadoOverlay(null);
+  }
 
   useEffect(() => {
     if (pedidoAtualizacaoNaBusca(window.location.search) || !isTauri()) {
@@ -115,6 +133,8 @@ export default function App() {
     let ativo = true;
     let unlisten: (() => void) | undefined;
     void aoDispensarOverlay(() => {
+      pararSomOverlay();
+      consumirRecado();
       setState((atual) => dispensarOverlay(atual));
     }).then((fn) => {
       if (ativo) {
@@ -135,6 +155,7 @@ export default function App() {
         if (comando === "pausar") {
           return pausar(atual, Date.now());
         }
+        void prepararAudio();
         return iniciar(atual, Date.now());
       });
     });
@@ -142,29 +163,30 @@ export default function App() {
 
   useEffect(() => {
     if (state.phase !== "overlay") {
+      pararSomOverlay();
       return;
     }
-    void tocarAlerta();
+    setEditandoRecado(false);
+    void tocarSomOverlay(somDoModo(sons, state.mode));
     if (isTauri()) {
-      void abrirOverlayNativo(state.mode).catch(() => {
+      void abrirOverlayNativo(state.mode, proximoRecado).catch(() => {
         void restaurarPrincipal();
       });
     }
-  }, [state.phase, state.mode]);
+    return () => {
+      pararSomOverlay();
+    };
+  }, [state.phase, state.mode, proximoRecado, sons]);
 
   function dispensarNaPagina() {
+    pararSomOverlay();
+    consumirRecado();
     setState((atual) => dispensarOverlay(atual));
     if (isTauri()) {
       void fecharOverlayNativo().catch(() => {
         void restaurarPrincipal();
       });
     }
-  }
-
-  function salvarConfig(novas: Duracoes) {
-    gravarDuracoesLocal(novas);
-    setState((atual) => aplicarDuracoes(atual, novas));
-    setTela("timer");
   }
 
   async function atualizarAgora() {
@@ -193,21 +215,50 @@ export default function App() {
       {tela === "config" ? (
         <ConfigScreen
           duracoes={state.duracoes}
-          onSalvar={salvarConfig}
+          sons={sons}
+          onSalvar={(novas, novosSons) => {
+            gravarDuracoesLocal(novas);
+            gravarSonsLocal(novosSons);
+            setSons(novosSons);
+            setState((atual) => aplicarDuracoes(atual, novas));
+            setTela("timer");
+          }}
           onVoltar={() => setTela("timer")}
         />
       ) : state.phase === "overlay" ? null : (
         <TimerScreen
           state={state}
-          onIniciar={() => setState((atual) => iniciar(atual, Date.now()))}
+          onIniciar={() => {
+            void prepararAudio();
+            setState((atual) => iniciar(atual, Date.now()));
+          }}
           onPausar={() => setState((atual) => pausar(atual, Date.now()))}
           onResetar={() => setState((atual) => resetar(atual))}
           onPular={() => setState((atual) => pular(atual))}
           onAbrirConfig={() => setTela("config")}
+          recadoPendente={proximoRecado != null}
+          onEditarRecado={() => setEditandoRecado(true)}
         />
       )}
       {state.phase === "overlay" ? (
-        <OverlayPanel motivo={state.mode} onDispensar={dispensarNaPagina} />
+        <OverlayPanel
+          motivo={state.mode}
+          recado={proximoRecado}
+          onDispensar={dispensarNaPagina}
+        />
+      ) : null}
+      {editandoRecado ? (
+        <EditarRecadoOverlay
+          valorInicial={proximoRecado ?? ""}
+          placeholder={tituloOverlayPadrao(state.mode)}
+          onSalvar={(texto) => {
+            const recado = normalizarRecadoOverlay(texto);
+            setProximoRecado(recado);
+            gravarRecadoOverlay(recado);
+            setEditandoRecado(false);
+          }}
+          onCancelar={() => setEditandoRecado(false)}
+        />
       ) : null}
       {mostrarPedido && pedido ? (
         <PedidoAtualizacao

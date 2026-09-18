@@ -23,7 +23,7 @@ Você implementa código neste repositório **Pomodoro**. Segue escolhas já gra
 - Trazer backlog, calendário, canais ou rituais do clone Sunsama.
 - Trazer Ludarium, Mongo compartilhado ou BotWhatsBG.
 - Commit ou testes no chat salvo o usuário pedir (testes ao criar/alterar unitários da fatia, conforme `AGENTS-codigo`).
-- Lint no chat, salvo pedido. `tauri dev` / janela só sob pedido ou bug de UI.
+- Lint no chat, salvo pedido. `npm run dev` / `tauri dev` / qualquer `npm run` de UI: só no fim da fatia se for card, ou se o usuário pedir agora. Se você subiu: **encerrar** o processo antes de responder.
 
 ## Se o usuário decidir algo novo no meio da implementação
 
