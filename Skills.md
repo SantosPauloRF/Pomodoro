@@ -8,6 +8,7 @@ Catálogo de skills **deste projeto**. Cada uma vive em `.cursor/skills/<nome>/S
 |---------|--------|
 | [AGENTS.md](./AGENTS.md) | Sempre: o que o produto é, o que não reabrir, ponteiros globais |
 | [PLANEJAMENTO.md](./PLANEJAMENTO.md) | Plano de produto, MVP, overlay, ordem de fatias |
+| [PLANEJAMENTO-ATUALIZACAO.md](./PLANEJAMENTO-ATUALIZACAO.md) | Atualização do app instalado (GitHub Releases + updater Tauri) |
 | `C:\Users\santo\.cursor\AGENTS-codigo.md` | Organização de código (este projeto aplica) |
 | `C:\Users\santo\.cursor\skills\ui-padroes\SKILL.md` | UI global (senha, delete) |
 | Este Skills.md | Índice: qual skill abrir |
@@ -17,7 +18,7 @@ Neste repo **não** vale o `AGENTS.md` Trello global.
 
 Fluxo:
 
-1. Ler `AGENTS.md` deste repo e `PLANEJAMENTO.md`.
+1. Ler `AGENTS.md` deste repo e `PLANEJAMENTO.md`. Atualização: `PLANEJAMENTO-ATUALIZACAO.md`.
 2. Abrir **só** a skill da tarefa (tabela abaixo).
 3. Globais de código/UI: ler o arquivo canônico, não uma cópia.
 4. Escolha nova do usuário → skill `registrar-escolhas` (persistir na hora).

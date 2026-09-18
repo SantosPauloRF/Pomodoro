@@ -22,6 +22,7 @@ Contexto: [AGENTS.md](../../../AGENTS.md). Persistência de escolha nova: skill 
 | Skills de **outro** produto | `~\.cursor\skills\botwhatsbg-*` | Pastas vazias / outro repo — ignorar. |
 | Lei Pomodoro | `AGENTS.md` (raiz) | Só decisões deste app. |
 | Plano / fatias | `PLANEJAMENTO.md` (raiz) | MVP, overlay, ordem de trabalho. |
+| Atualização | `PLANEJAMENTO-ATUALIZACAO.md` (raiz) | GitHub Releases + updater Tauri; pedido em cada PC. |
 | Skills Pomodoro | `.cursor/skills/<nome>/SKILL.md` | Como fazer fluxos deste app. |
 | Subagentes Pomodoro | `.cursor/agents/*.md` | `registrar-escolhas`, `pomodoro-dev`. |
 
@@ -31,6 +32,7 @@ Contexto: [AGENTS.md](../../../AGENTS.md). Persistência de escolha nova: skill 
 - “Commit só no fim do checklist Desenvolvimento cursor” → global de Trello; **neste app** commit só se o usuário pedir.
 - “Senha com olho / modal ao deletar” → `ui-padroes`, **a menos que** o usuário diga que neste app é diferente.
 - “Timer 25/5”, “Tauri”, “sem login”, “overlay em todos os monitores” → **deste** repo (`AGENTS.md` + `produto-pomodoro` + `PLANEJAMENTO.md`).
+- “Atualizar o app em todos os PCs” → `PLANEJAMENTO-ATUALIZACAO.md`.
 - “Isso vale em todos os projetos” → arquivo **global** + changelog de lá.
 
 ## Conflito

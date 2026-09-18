@@ -1,6 +1,6 @@
 # AGENTS.md — Pomodoro
 
-Instruções permanentes deste repositório. Detalhes de fluxo ficam em [Skills.md](./Skills.md) e em `.cursor/skills/*/SKILL.md`. Plano de produto e ordem de fatias: [PLANEJAMENTO.md](./PLANEJAMENTO.md).
+Instruções permanentes deste repositório. Detalhes de fluxo ficam em [Skills.md](./Skills.md) e em `.cursor/skills/*/SKILL.md`. Plano de produto e ordem de fatias: [PLANEJAMENTO.md](./PLANEJAMENTO.md). Atualização em cada PC instalado: [PLANEJAMENTO-ATUALIZACAO.md](./PLANEJAMENTO-ATUALIZACAO.md).
 
 Este arquivo é a lei do **projeto**. Não copie aqui o texto das regras globais — só o que for decisão **deste** app.
 
@@ -30,6 +30,7 @@ Quando o usuário decidir algo, persistir **na mesma sessão** (skill `registrar
 | Lei permanente deste app (stack, “não faça X”, arquitetura) | Este `AGENTS.md` + linha no [Changelog](#changelog) |
 | Como fazer um fluxo (timer, persistência, tela) | Skill em `.cursor/skills/<nome>/` + linha em `Skills.md` |
 | Plano / ordem de fatias / MVP | [PLANEJAMENTO.md](./PLANEJAMENTO.md) e, se for “não reabrir”, também este arquivo |
+| Atualização / instalador / Releases | [PLANEJAMENTO-ATUALIZACAO.md](./PLANEJAMENTO-ATUALIZACAO.md) e, se for “não reabrir”, também este arquivo |
 | Trello | **Não se aplica** neste repo |
 | Organização de código / testes / CI / env | **Só** `AGENTS-codigo.md` global + changelog de lá |
 | UI que o usuário disser que é **global** | Skill `ui-padroes` + changelog de lá |
@@ -49,7 +50,7 @@ Se a escolha for global, **não** copiar o parágrafo para este repo — no máx
 8. Ciclo: **4 focos** — pausa curta depois dos focos 1–3; pausa longa depois do 4º. Durações editáveis na tela de configuração (iniciais 25 / 5 / 15 min).
 9. Ao **minimizar** ou **clicar fora** da janela: ícone flutuante always-on-top, **arrastável**, tomate com relógio **sem fundo de janela**; **anel de progresso** em volta de todo o widget; interior do círculo com backdrop **50% transparente** (igual ao overlay ao zerar); no centro **horário atual**, **dia da semana** e **dia do mês**; **play** embaixo por cima do círculo (vira **pause** se o timer estiver rodando); clique no ícone abre de novo a janela.
 10. Commit só se o usuário pedir. Sem checklist Trello. Pedidos avulsos: sem testes no chat, salvo pedido ou ao criar/alterar testes da fatia.
-11. Plano vigente: [PLANEJAMENTO.md](./PLANEJAMENTO.md).
+11. Plano vigente: [PLANEJAMENTO.md](./PLANEJAMENTO.md). Atualização do app instalado: [PLANEJAMENTO-ATUALIZACAO.md](./PLANEJAMENTO-ATUALIZACAO.md) (ainda não ligado no código).
 12. **Entendi** leva à tela do próximo modo (pausa ou foco) **parado**, para o usuário iniciar.
 13. **Pular** avança o modo atual (foco ou pausa) sem esperar o tempo; não abre overlay.
 14. Ícone do app (janela, `.exe`, barra de tarefas) e do flutuante: **tomate com relógio**.
@@ -68,10 +69,11 @@ Som em loop vs um toque: **TBD** (ver skill `produto-pomodoro`).
 
 1. Este arquivo
 2. [PLANEJAMENTO.md](./PLANEJAMENTO.md)
-3. `C:\Users\santo\.cursor\AGENTS-codigo.md`
-4. Em UI: `C:\Users\santo\.cursor\skills\ui-padroes\SKILL.md`
-5. [Skills.md](./Skills.md) — qual skill abrir
-6. Skill `produto-pomodoro` se a tarefa for de produto/timer/stack
+3. Em atualização do instalado: [PLANEJAMENTO-ATUALIZACAO.md](./PLANEJAMENTO-ATUALIZACAO.md)
+4. `C:\Users\santo\.cursor\AGENTS-codigo.md`
+5. Em UI: `C:\Users\santo\.cursor\skills\ui-padroes\SKILL.md`
+6. [Skills.md](./Skills.md) — qual skill abrir
+7. Skill `produto-pomodoro` se a tarefa for de produto/timer/stack
 
 ## Changelog
 
@@ -86,3 +88,4 @@ Som em loop vs um toque: **TBD** (ver skill `produto-pomodoro`).
 | 2026-09-17 | Visual da janela no modelo da referência: fundo escuro, anel, acento coral. |
 | 2026-09-17 | Ícone flutuante com anel de progresso em volta de todo o widget e backdrop 50% no círculo. |
 | 2026-09-17 | Play/pause no flutuante, embaixo por cima do círculo. |
+| 2026-09-18 | Plano de atualização: GitHub Releases + updater Tauri; cada PC instalado pede update ao abrir. |

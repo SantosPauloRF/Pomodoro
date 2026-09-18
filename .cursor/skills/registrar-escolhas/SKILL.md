@@ -11,7 +11,7 @@ description: >-
 
 O chat **não** é a fonte da verdade. Na mesma sessão em que o usuário decidir, persistir.
 
-Mapa de arquivos: skill `mapa-globais`. Lei curta: [AGENTS.md](../../../AGENTS.md). Plano: [PLANEJAMENTO.md](../../../PLANEJAMENTO.md).
+Mapa de arquivos: skill `mapa-globais`. Lei curta: [AGENTS.md](../../../AGENTS.md). Plano: [PLANEJAMENTO.md](../../../PLANEJAMENTO.md). Atualização: [PLANEJAMENTO-ATUALIZACAO.md](../../../PLANEJAMENTO-ATUALIZACAO.md).
 
 ## Passos
 
@@ -25,6 +25,7 @@ Mapa de arquivos: skill `mapa-globais`. Lei curta: [AGENTS.md](../../../AGENTS.m
 | UI e o usuário disse **global** | `C:\Users\santo\.cursor\skills\ui-padroes\SKILL.md` + Changelog de lá |
 | Lei deste app (“não faça X”, stack, escopo) | `AGENTS.md` deste repo → bloco Decisões + Changelog |
 | Plano / MVP / ordem de fatias | `PLANEJAMENTO.md` (+ `AGENTS.md` se for “não reabrir”) |
+| Atualização / Releases / updater | `PLANEJAMENTO-ATUALIZACAO.md` (+ `AGENTS.md` se for “não reabrir”) |
 | Como fazer um fluxo deste app | Skill `.cursor/skills/<nome>/SKILL.md` (+ `Skills.md` se for skill nova) |
 | Produto/timer/persistência deste app | `.cursor/skills/produto-pomodoro/SKILL.md` e, se for “não reabrir”, também `AGENTS.md` |
 

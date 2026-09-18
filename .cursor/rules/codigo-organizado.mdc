@@ -13,4 +13,4 @@ Em UI (formulário, senha, delete/remove, modal): skill global
 
 `C:\Users\santo\.cursor\skills\ui-padroes\SKILL.md`
 
-Decisões **só deste app** (stack, timer, escopo): `AGENTS.md` e `PLANEJAMENTO.md` na raiz, e skills em `.cursor/skills/`. Neste app não usamos Trello.
+Decisões **só deste app** (stack, timer, escopo): `AGENTS.md`, `PLANEJAMENTO.md` e `PLANEJAMENTO-ATUALIZACAO.md` na raiz, e skills em `.cursor/skills/`. Neste app não usamos Trello.

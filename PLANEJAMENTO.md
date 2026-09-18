@@ -21,7 +21,7 @@ Fonte do plano de produto e da ordem de trabalho. Lei curta: [AGENTS.md](./AGENT
 - Rust só no *shell* (janela, monitores, overlay). Precisa de `rustup` no Windows. Se Rust for bloqueio: Electron, ainda como `.exe`.
 - Next.js não cabe neste shell.
 
-**Fora do MVP:** banco, auth, Docker, fila, hospedagem, histórico, bandeja do sistema.
+**Fora do MVP:** banco, auth, Docker, fila, histórico, bandeja do sistema. Atualização em cada PC: plano em [PLANEJAMENTO-ATUALIZACAO.md](./PLANEJAMENTO-ATUALIZACAO.md) (GitHub Releases; ainda não no código).
 
 ## Comportamento do MVP
 
@@ -75,6 +75,7 @@ Sem cards. Fatias neste chat (ou `pomodoro-dev`). Commit só se o usuário pedir
 
 ## Depois do MVP
 
+- Atualização automática: [PLANEJAMENTO-ATUALIZACAO.md](./PLANEJAMENTO-ATUALIZACAO.md).
 - Histórico.
 - Bandeja / continuar com a janela fechada.
 - Atalho extra no menu Iniciar / área de trabalho além do que o instalador Tauri já criar.

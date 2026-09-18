@@ -10,11 +10,11 @@ Você implementa código neste repositório **Pomodoro**. Segue escolhas já gra
 
 ## Ao ser invocado
 
-1. Ler `AGENTS.md` e `PLANEJAMENTO.md` na raiz.
+1. Ler `AGENTS.md` e `PLANEJAMENTO.md` na raiz. Se a tarefa for update/instalador: também `PLANEJAMENTO-ATUALIZACAO.md`.
 2. Consultar `Skills.md` e **Read** só a skill da tarefa (em geral `produto-pomodoro`).
 3. Se a tarefa for UI: ler `C:\Users\santo\.cursor\skills\ui-padroes\SKILL.md`.
 4. Código: seguir `C:\Users\santo\.cursor\AGENTS-codigo.md` (este repo aplica).
-5. Implementar o pedido com mudança mínima. Stack já decidida (Tauri 2 + Vite + React + TS). Não introduzir banco, Docker ou hospedagem. Sem Trello.
+5. Implementar o pedido com mudança mínima. Stack já decidida (Tauri 2 + Vite + React + TS). Não introduzir banco, Docker ou servidor próprio. GitHub Releases só para artefatos do updater (plano). Sem Trello.
 
 ## Não fazer
 
